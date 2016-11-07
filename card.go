@@ -43,7 +43,8 @@ type Side int
 
 // constant for side only two
 const (
-	First Side = iota
+	None Side = iota
+	First
 	Second
 )
 
@@ -70,6 +71,12 @@ func FindCardValue(cardValue, level int) (first, second int) {
 func MakeCard(cv CardValue) Card {
 	first, second := FindCardValue(int(cv), 0)
 	return Card{SideValue{DotValue(first), false}, SideValue{DotValue(second), false}}
+}
+
+// function for making a card by inputing the card value and bool of the match status
+func MakeCardBool(cv CardValue, firstBool, secondBool bool) Card {
+	first, second := FindCardValue(int(cv), 0)
+	return Card{SideValue{DotValue(first), firstBool}, SideValue{DotValue(second), secondBool}}
 }
 
 // function for stringer
@@ -117,7 +124,7 @@ func MatchCard(firstcard, secondcard *Card, executed bool) (bool, Side, Side) {
 
 	if b && executed {
 		firstcard.GetSide(firstSide).ChangeMatched(true)
-		secondcard.GetSide(firstSide).ChangeMatched(true)
+		secondcard.GetSide(secondSide).ChangeMatched(true)
 	}
 	return b, firstSide, secondSide
 }

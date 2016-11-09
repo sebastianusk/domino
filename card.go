@@ -84,6 +84,14 @@ func (card Card) String() string {
 	return fmt.Sprintf("Card, first side: %s, second side: %s", card.first, card.second)
 }
 
+func (card Card) GetCardValue() CardValue {
+	var firstValue int
+	for i := 0; i < int(card.first.dotvalue); i++ {
+		firstValue = firstValue + 6 - i
+	}
+	return CardValue(firstValue + int(card.second.dotvalue))
+}
+
 // funct for get the side, i'm using pointer so the return value can be changing in the real card
 func (card *Card) GetSide(side Side) *SideValue {
 	if side == First {

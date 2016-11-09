@@ -48,6 +48,34 @@ func TestCreateCardBool(t *testing.T) {
 	}
 }
 
+func TestGetCardValue(t *testing.T) {
+	cases := []struct {
+		card     Card
+		expected CardValue
+	}{
+		{MakeCard(BlankBlank), BlankBlank},
+		{MakeCard(BlankSix), BlankSix},
+		{MakeCard(OneOne), OneOne},
+		{MakeCard(OneSix), OneSix},
+		{MakeCard(TwoTwo), TwoTwo},
+		{MakeCard(TwoSix), TwoSix},
+		{MakeCard(ThreeThree), ThreeThree},
+		{MakeCard(ThreeSix), ThreeSix},
+		{MakeCard(FourFour), FourFour},
+		{MakeCard(FourSix), FourSix},
+		{MakeCard(FiveFive), FiveFive},
+		{MakeCard(FiveSix), FiveSix},
+		{MakeCard(SixSix), SixSix},
+	}
+
+	for _, c := range cases {
+		cardValue := c.card.GetCardValue()
+		if cardValue != c.expected {
+			t.Errorf("Failed, result %d, expected %d", cardValue, c.expected)
+		}
+	}
+}
+
 func TestStringerCard(t *testing.T) {
 	cases := []struct {
 		card     Card
